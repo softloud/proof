@@ -1,0 +1,10 @@
+{
+    "dialog-state": {
+        "query": "size_of_tests_per_pkg",
+        "path": "",
+        "regex": false,
+        "caseSensitive": false,
+        "filePatterns": [],
+        "projectRelative": true
+    }
+}

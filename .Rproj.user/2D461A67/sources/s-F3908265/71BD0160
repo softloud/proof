@@ -1,0 +1,24 @@
+{
+    "id": "71BD0160",
+    "path": "~/Documents/repos/proof/analysis/001-get-pkg-data-from-cran-github-mirror.R",
+    "project_path": "analysis/001-get-pkg-data-from-cran-github-mirror.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1560371689444.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "cursorPosition": "11,34",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1560371803,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1560371803317,
+    "read_only": false,
+    "read_only_alternatives": []
+}

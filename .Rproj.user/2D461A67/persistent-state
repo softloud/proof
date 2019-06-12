@@ -1,0 +1,8 @@
+build-last-errors="[]"
+build-last-errors-base-dir=""
+build-last-outputs="[]"
+compile_pdf_state="{\"tab_visible\":false,\"running\":false,\"target_file\":\"\",\"output\":\"\",\"errors\":[]}"
+files.monitored-path=""
+find-in-files-state="{\"handle\":\"8d243598fc144682a2f37c9d91e25ed0\",\"input\":\"size_of_tests_per_pkg\",\"path\":\"~/Documents/repos/proof\",\"regex\":false,\"results\":{\"file\":[\"~/Documents/repos/proof/004-scatterplots-of-tests-and-metadata.R\",\"~/Documents/repos/proof/004-scatterplots-of-tests-and-metadata.R\",\"~/Documents/repos/proof/004-scatterplots-of-tests-and-metadata.R\",\"~/Documents/repos/proof/002-pkg-data-into-tbls.R\",\"~/Documents/repos/proof/002-pkg-data-into-tbls.R\",\"~/Documents/repos/proof/002-pkg-data-into-tbls.R\",\"~/Documents/repos/proof/002-pkg-data-into-tbls.R\"],\"line\":[4,8,34,34,42,44,45],\"lineValue\":[\"size_of_tests_per_pkg <- readRDS(\\\"size_of_tests_per_pkg.rds\\\")\",\"left_join(size_of_tests_per_pkg,\",\"plot_grid(size_of_tests_per_pkg_hist_plot,\",\"size_of_tests_per_pkg <-\",\"saveRDS(size_of_tests_per_pkg, \\\"size_of_tests_per_pkg.rds\\\")\",\"size_of_tests_per_pkg_hist_plot <-\",\"ggplot(size_of_tests_per_pkg,\"],\"matchOn\":[[0,34],[10],[10],[0],[8,32],[0],[7]],\"matchOff\":[[21,55],[31],[31],[21],[29,53],[21],[28]]},\"running\":false}"
+imageDirtyState="1"
+saveActionState="0"
