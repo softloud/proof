@@ -3,7 +3,9 @@
 
 # proof
 
-<!-- badges: start --> [![Launch Rstudio
+<!-- badges: start -->
+
+[![Launch Rstudio
 binder](http://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/softloud/proof/master?urlpath=rstudio)
 <!-- badges: end -->
 
@@ -32,7 +34,9 @@ You can download the compendium as a zip from from this URL:
 </archive/master.zip>
 
 Or you can install this compendium as an R package, proof, from GitHub
-with: \#\#\# Licenses
+with:
+
+### Licenses
 
 **Text and figures :**
 [CC-BY-4.0](http://creativecommons.org/licenses/by/4.0/)
