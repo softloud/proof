@@ -1,9 +1,33 @@
-Package: proof
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Type: Compendium
+Package: Compendium title
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.1
+Authors@R: 
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
-Depends: R (>= 3.6.0)
-License: What license is it under?
+License: What license it uses
+Depends: 
+    bookdown,
+    conflicted,
+    cowplot,
+    ctv,
+    devtools,
+    ggbeeswarm,
+    ggridges,
+    gh,
+    git2r,
+    here,
+    hrbrthemes,
+    knitr,
+    lubridate,
+    rmarkdown,
+    rvest,
+    stringr,
+    tidyverse,
+    tools
 Encoding: UTF-8
 LazyData: true
