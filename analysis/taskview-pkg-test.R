@@ -1,10 +1,11 @@
 library(ctv)
 library(tidyverse)
 library(lubridate)
+library(ggridges)
 conflicted::conflict_prefer("filter", "dplyr")
 
 # get view metadata
-# tv <- available.views() # takes a while
+tv <- available.views() # this takes a while
 
 # package list
 dat <- tv %>%
@@ -38,6 +39,13 @@ dates <- pkg_test_taskview %>%
   as_date() %>%
   discard(is.na) # why are there nas?
 
+
+
+
+
+# time, doesn't really work -----------------------------------------------
+
+
 # create plot data
 plot_data <- seq.Date(min(dates), max(dates), by = "month") %>%
   map_df(.f = function(x){
@@ -47,6 +55,8 @@ plot_data <- seq.Date(min(dates), max(dates), by = "month") %>%
       summarise(no_tests_prop = sum(no_tests)/length(no_tests)) %>%
       mutate(date = as_date(x))
   })
+
+
 
 # plot
 plot_data %>%
@@ -80,11 +90,13 @@ taskview_dat <- pkg_test_taskview %>%
   group_by(taskview)
 
 # relevel
-ts_levels <- taskview_dat %>%
+ts_prop <- taskview_dat %>%
   group_by(taskview) %>%
   select(name, no_tests) %>%
   summarise(prop = sum(no_tests)/length(no_tests)) %>%
-  arrange(prop) %>%
+  arrange(prop)
+
+ts_levels <- ts_prop %>%
   pluck("taskview")
 
 # barcharts
@@ -103,4 +115,65 @@ taskview_dat %>%
   )
 
 
-#
+
+
+# ridges ------------------------------------------------------------------
+
+
+
+ratio_levels <- taskview_dat %>%
+  group_by(taskview) %>%
+  summarise(median_ratio = median(test_size_ratio)) %>%
+  arrange(median_ratio) %>% pluck("taskview")
+
+
+props <- ts_prop %>%
+  mutate(start = 0) %>%
+  gather(key = terminal, value = ratio, start, prop)
+
+# For the overall distribution
+ratio_quantiles <- taskview_dat$test_size_ratio %>%
+  quantile(c(0.25, 0.5, 0.75)) %>%
+  log()
+
+# ridges plot
+ridges_dat <- taskview_dat %>%
+  ungroup() %>%
+  mutate(taskview = fct_relevel(taskview, ratio_levels),
+         lr = log(test_size_ratio + 0.0000001))
+
+ridges_dat %>%
+  ggplot() +
+  # geom_point()
+  geom_vline(
+    colour = "black",
+    linetype = "dotted",
+    xintercept = ratio_quantiles[[2]]
+  ) +
+  geom_vline(
+    colour = "black",
+    linetype = "dashed",
+    xintercept = ratio_quantiles[c(1,3)]
+  ) +
+  # geom_rect(
+  #   aes(xmin = ratio_quantiles[[1]],
+  #           xmax = ratio_quantiles[[2]],
+  #           ymin = -1000,
+  #           ymax = 1000),
+  #           colour = "lightgrey",
+  #           alpha = 0.3) +
+  geom_density_ridges(
+  data = ridges_dat,
+  aes(y = taskview, x = lr),
+    alpha = 0.8,
+    colour = "darkgrey"
+    ) +
+  labs(
+    title = "Proportion of files associated with testing in taskview packages",
+    x = "Log-ratio of size of files associated with tests with other files",
+    y = "Taskview",
+    caption = str_wrap("Taskviews ordered by median ratio of test files. Dashed lines indicate overall interquartile range, and dotted line, the overall median, of log-ratios of testing file sizes to other files.")
+  )
+
+ggsave("ridges.png")
+
