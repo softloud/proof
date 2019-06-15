@@ -54,35 +54,18 @@ plot_data <- seq.Date(min(dates), max(dates), by = "month") %>%
       group_by(taskview) %>%
       summarise(no_tests_prop = sum(no_tests)/length(no_tests)) %>%
       mutate(date = as_date(x))
-  })
+  }) %>%
+  filter(!is.na(taskview ))
 
 
 
 # plot
 plot_data %>%
-  filter(!is.na(taskview )) %>%
   ggplot(aes(x = date, y = no_tests_prop)) +
   geom_line(aes(group = taskview, colour = taskview)) +
   labs(x = "Month",
        y = str_wrap("Proportion of packages in taskview with no tests", width = 30))
-ggsave("taskviews.png")
-
-
-# zoom plot
-plot_data %>%
-  filter(!is.na(taskview),
-         no_tests_prop > 0.2) %>%
-  ggplot(aes(x = date, y = no_tests_prop)) +
-  geom_line(
-    alpha = 0.8,
-    aes(group = taskview, colour = taskview)) +
-  labs(x = "Month",
-       title = str_wrap("More than one fifth of the packages in these taskviews have no tests", width = 60),
-       y = str_wrap("Proportion > 0.2 of packages with no tests, by taskview", width = 30)) +
-  hrbrthemes::scale_colour_ipsum("Taskview")
-
-ggsave("taskviews-zoom.png")
-
+ggsave("figures/taskviews.png")
 
 #
 taskview_dat <- pkg_test_taskview %>%
@@ -102,23 +85,26 @@ ts_levels <- ts_prop %>%
 # barcharts
 taskview_dat %>%
   ungroup() %>%
-  mutate(taskview = fct_relevel(taskview, ts_levels)) %>%
-  ggplot(aes(x = taskview, fill = no_tests)) +
-  geom_bar() +
+  mutate(taskview = fct_relevel(taskview, ts_levels),
+         tests = !no_tests) %>%
+  ggplot(aes(x = taskview, fill = tests)) +
+  geom_bar(alpha = 0.8) +
   coord_flip() +
-  scale_fill_grey("No tests") +
+  scale_fill_grey("Tests", start = 0.8, end = 0.2) +
   labs(
-    title = "How many packages in a taskview have no tests?",
-    x = "Number of packages in taskview",
-    y = "Taskview",
+    title = "How many packages in a taskview have tests?",
+    y = "Number of packages in taskview",
+    x = "Taskview",
     caption = "Taskviews ordered by proportion of packages with no tests."
   )
 
-
+ggsave("figures/tests-no-tests.png")
 
 
 # ridges ------------------------------------------------------------------
 
+
+tv_pkgs <- tidyverse::tidyverse_packages()
 
 
 ratio_levels <- taskview_dat %>%
@@ -136,24 +122,39 @@ ratio_quantiles <- taskview_dat$test_size_ratio %>%
   quantile(c(0.25, 0.5, 0.75)) %>%
   log()
 
-# ridges plot
+# tidyverse quantiles
+tidyverse_quantiles <- taskview_dat %>%
+  mutate(tidy = name %in% tv_pkgs) %>%
+  filter(isTRUE(tidy)) %>%
+  pluck("test_size_ratio") %>%
+  quantile(c(0.25, 0.5, 0.75)) %>%
+  log()
+
+# but, as this currently yields nothing, some dummy code
+tidyverse_quantiles <- runif(n = 100, -4, -2) %>%
+  quantile(c(0.25, 0.5, 0.75))
+
+
+# ridges plot data
 ridges_dat <- taskview_dat %>%
   ungroup() %>%
   mutate(taskview = fct_relevel(taskview, ratio_levels),
          lr = log(test_size_ratio + 0.0000001))
 
+
+# ridges plot
 ridges_dat %>%
   ggplot() +
   # geom_point()
   geom_vline(
     colour = "black",
     linetype = "dotted",
-    xintercept = ratio_quantiles[[2]]
+    xintercept = tidyverse_quantiles
   ) +
   geom_vline(
     colour = "black",
     linetype = "dashed",
-    xintercept = ratio_quantiles[c(1,3)]
+    xintercept = ratio_quantiles
   ) +
   # geom_rect(
   #   aes(xmin = ratio_quantiles[[1]],
@@ -172,8 +173,8 @@ ridges_dat %>%
     title = "Proportion of files associated with testing in taskview packages",
     x = "Log-ratio of size of files associated with tests with other files",
     y = "Taskview",
-    caption = str_wrap("Taskviews ordered by median ratio of test files. Dashed lines indicate overall interquartile range, and dotted line, the overall median, of log-ratios of testing file sizes to other files.")
+    caption = str_wrap("Taskviews ordered by median ratio of test files. Dashed lines indicate overall quartiles of log-ratios of testing file sizes to other files. Dotted lines indicate the quartiles of log-ratios of testing files in tidyverse:: packages.")
   )
 
-ggsave("ridges.png")
+ggsave("figures/ridges.png")
 
