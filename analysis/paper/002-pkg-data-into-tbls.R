@@ -1,6 +1,6 @@
 library(tidyverse)
-pkg_trees <- readRDS("pkg_trees.rds")
-cran_pkg_names <- readRDS("cran_pkg_names.rds")
+pkg_trees <- readRDS("analysis/data/raw_data/pkg_trees.rds")
+cran_pkg_names <- readRDS("analysis/data/raw_data/cran_pkg_names.rds")
 
 # drop the errors
 good_ones <- transpose(pkg_trees)$result
@@ -26,21 +26,21 @@ prop_with_tests <- n_pkgs_with_tests / n
 perc_with_tests <-  prop_with_tests * 100
 
 # rough size of tests per pkg
-test_file_sizes <- 
-x_tests_dir %>% 
-  map(~.x %>% filter(str_detect( path , "\\.R$|\\.r$"))) 
+test_file_sizes <-
+x_tests_dir %>%
+  map(~.x %>% filter(str_detect( path , "\\.R$|\\.r$")))
 
-size_of_tests_per_pkg <- 
-  map_df(test_file_sizes, ~sum(.x$size, na.rm = TRUE)) %>% 
-  gather(cran_pkg_names, test_size) %>% 
+size_of_tests_per_pkg <-
+  map_df(test_file_sizes, ~sum(.x$size, na.rm = TRUE)) %>%
+  gather(cran_pkg_names, test_size) %>%
   left_join(
     tibble(cran_pkg_names = cran_pkg_names,
-           pkg_size = map_int(x, ~sum(.x$size, na.rm = TRUE)))) %>% 
+           pkg_size = map_int(x, ~sum(.x$size, na.rm = TRUE)))) %>%
   mutate(test_size_ratio =  test_size / pkg_size)
 
 saveRDS(size_of_tests_per_pkg, "size_of_tests_per_pkg.rds")
 
-size_of_tests_per_pkg_hist_plot <- 
+size_of_tests_per_pkg_hist_plot <-
   ggplot(size_of_tests_per_pkg,
          aes(test_size_ratio)) +
   geom_histogram() +
