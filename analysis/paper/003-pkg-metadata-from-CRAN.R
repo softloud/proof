@@ -3,7 +3,7 @@
 # https://rviews.rstudio.com/2018/03/08/cran-package-metadata/
 # https://www.rstudio.com/resources/videos/what-makes-a-great-r-package/
 
-pkg_DESC <- tools:::CRAN_package_db() 
+pkg_DESC <- tools:::CRAN_package_db()
 meta_data <- pkg_DESC[, c(1,4,5,17,37,60,61)]
 names(meta_data) <- c("Package","Dep","Imp","Aut","Date","RD","RI")
 library(stringr)
@@ -65,7 +65,7 @@ c_dat <- bind_cols(c_dat1, c_dat2, date = meta_data$Date)
 
 head(c_dat)
 
-saveRDS(c_dat, "c_dat.rds")
+saveRDS(c_dat, "analysis/data/raw_data/c_dat.rds")
 
 ss <- function(x){
   avg <- round(mean(x),digits=2)
