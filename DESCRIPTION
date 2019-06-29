@@ -19,6 +19,7 @@ Depends:
     conflicted,
     cowplot,
     ctv,
+    directlabels,
     devtools,
     ggbeeswarm,
     ggridges,
