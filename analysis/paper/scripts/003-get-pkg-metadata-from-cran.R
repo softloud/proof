@@ -63,19 +63,9 @@ c_dat2 <- seq_len(nrow(meta_data)) %>%
 # head(c_dat2)
 c_dat <- bind_cols(c_dat1, c_dat2, date = meta_data$Date)
 
-head(c_dat)
+c_dat <-
+  c_dat %>%
+  filter(Package %in% cran_pkg_names )
 
-saveRDS(c_dat, "analysis/data/raw_data/c_dat.rds")
 
-ss <- function(x){
-  avg <- round(mean(x),digits=2)
-  std <- round(sd(x),digits=2)
-  med <- median(x)
-  res <- list(mean = avg, sd = std, median = med)
-}
-
-res <- cbind(names(c_dat[,-c(1,9)]), map_df(c_dat[,-c(1,9)],ss))
-names(res) <- c("Features", "mean", "sd", "median")
-res
-
-quantile(c_dat$RDRI)
+saveRDS(c_dat, here::here("analysis/data/raw-data/cran_pkg_metadata.rds"))

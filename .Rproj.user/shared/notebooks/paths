@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-/home/charles/Documents/repos/proof/DESCRIPTION="86CF1A05"
-/home/charles/Documents/repos/proof/analysis/figures/density-proof.R="0C298024"
-=======
-/Users/bmarwick/Desktop/proof/README.Rmd="D3FFFCC9"
-/Users/bmarwick/Desktop/proof/analysis/paper/004-scatterplots-of-tests-and-metadata.R="FA096B0F"
-/Users/bmarwick/Desktop/proof/analysis/paper/005-pkg-birth-dates-from-CRAN.R="F91E4BE5"
-/Users/bmarwick/Desktop/proof/analysis/paper/006-taskview-pkg-test.R="49F7A5E5"
-C:/Users/bmarwick/Desktop/proof/analysis/paper/003-pkg-metadata-from-CRAN.R="92151DEB"
-C:/Users/bmarwick/Downloads/ARCHY-483-Experimental-Assemblages-Report.Rmd="E9626C79"
->>>>>>> f698324daeafc02684acb345760a423c513ad0e0
+C:/Users/benma/OneDrive/Desktop/proof/analysis/paper/scripts/001-get-ctv-pkgs-file-trees-froms-github.R="C58AB20A"
+C:/Users/benma/OneDrive/Desktop/proof/analysis/paper/scripts/002-plot-test-file-size-props.R="F124A558"
+C:/Users/benma/OneDrive/Desktop/proof/analysis/paper/scripts/003-get-pkg-metadata-from-cran.R="B0B5547B"
+C:/Users/benma/OneDrive/Desktop/proof/analysis/paper/scripts/004-plot-test-ratio-and-metadata.R="211BA232"
+C:/Users/benma/OneDrive/Desktop/proof/analysis/paper/scripts/005-get-pkg-initial-pub-dates.R="339E9F9A"
+C:/Users/benma/OneDrive/Desktop/proof/analysis/paper/scripts/006-plot-pkg-initial-pub-dates.R="A0167F1F"
