@@ -5,5 +5,9 @@
             "ascending": true
         }
     ],
+<<<<<<< HEAD
     "path": "~/Documents/repos/proof"
+=======
+    "path": "~/Documents/repos/proof/analysis/figures"
+>>>>>>> 431148d3347bd04a57c7148e4cbc7fc053e4c150
 }
