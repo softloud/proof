@@ -2,10 +2,10 @@
 library(tidyverse)
 library(gh)
 
-.token = "5f466f0c823785e84291768fd1136787eec923e4"  # get one from https://github.com/settings/tokens
+.token = ""  # get one from https://github.com/settings/tokens
 
 # get all pkgs on GitHub mirror of CRAN
-n <- 16125  # 5000 # 16125 # https://github.com/cran
+n <- 16125 # 16125 # https://github.com/cran
 cran_repos <- gh("/users/:username/repos",
                  username = "cran",
                  .limit = n,
