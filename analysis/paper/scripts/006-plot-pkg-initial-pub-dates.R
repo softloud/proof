@@ -50,7 +50,7 @@ ggplot(pkg_test_size_desc_birth_dates_by_year,
        aes(birth_year,
            prop )) +
   geom_col() +
-  labs(y = "Proportion of CTV packages\nper year with tests",
+  labs(y = "Proportion of\nCTV packagesper year\nwith tests",
        x = "") +
   theme_minimal(base_size = 8) +
   scale_fill_viridis_d()
@@ -112,5 +112,15 @@ plot_grid(test_ratio_vs_various_facet_plot,
           pkg_test_size_desc_birth_dates_by_year_plot,
           pkg_test_size_desc_birth_dates_boxplot,
           ncol = 1)
+
+library(cowplot)
+plot_grid(size_of_tests_per_pkg_hist_plot,
+          test_ratio_vs_various_facet_plot1,
+          labels="auto",
+          pkg_test_size_desc_birth_dates_by_year_plot,
+          pkg_test_size_desc_birth_dates_boxplot,
+          ncol = 1)
+
+ggsave(here::here('analysis/figures/000-tests-over-time.png'), h = 10, w = 10)
 
 

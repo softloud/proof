@@ -43,4 +43,8 @@ test_ratio_vs_various_facet_plot1 <-
 library(cowplot)
 plot_grid(size_of_tests_per_pkg_hist_plot,
           test_ratio_vs_various_facet_plot1,
+          labels="auto",
           ncol = 1)
+
+ggsave(here::here('analysis/figures/000-how-much-of-th-pkg-is-tests.png'), h = 10, w = 10)
+

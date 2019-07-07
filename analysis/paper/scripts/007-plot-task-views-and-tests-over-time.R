@@ -72,7 +72,16 @@ pkg_test_size_desc_birth_dates_ctv %>%
 
 cowplot::plot_grid(p,
          pkg_test_size_desc_birth_dates_ctv_prop_plot,
-         ncol = 1)
+         ncol = 1,
+         labels="auto"
+         )
+
+ggsave(here::here('analysis/figures/000-ctv-prop-pkgs-with-tests.png'),
+       h = 10, w = 10)
+
+
+
+
 
 
 
